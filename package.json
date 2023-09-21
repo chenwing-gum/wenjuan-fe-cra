@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -13,6 +14,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "ahooks": "^3.7.8",
+    "antd": "^5.9.2",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "husky": "^8.0.3",
