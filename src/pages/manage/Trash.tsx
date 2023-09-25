@@ -1,44 +1,21 @@
 import React, { FC, useState } from 'react'
-import { Typography, Empty, Table, Tag, Button, Space, Modal } from 'antd'
+import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { useTitle } from 'ahooks'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import styles from './common.module.scss'
 
 const { Title } = Typography
 const { confirm } = Modal
 
-const rowQuestionList = [
-  {
-    _id: 'q1',
-    title: '问卷1',
-    isPublished: false,
-    isStart: true,
-    answerCount: 5,
-    createAt: '3月10日 13:23',
-  },
-  {
-    _id: 'q2',
-    title: '问卷2',
-    isPublished: true,
-    isStart: false,
-    answerCount: 6,
-    createAt: '3月11日 13:23',
-  },
-  {
-    _id: 'q3',
-    title: '问卷3',
-    isPublished: false,
-    isStart: true,
-    answerCount: 7,
-    createAt: '3月12日 13:23',
-  },
-]
-
 const Trash: FC = () => {
   useTitle('问卷星 - 回收站')
-  const [questionList] = useState(rowQuestionList)
+
   const [selectIds, setSelectIds] = useState<string[]>([])
+  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+  const { list = [], total = 0 } = data
+  total
 
   function del() {
     confirm({
@@ -71,7 +48,7 @@ const Trash: FC = () => {
     },
     {
       title: '创建时间',
-      dataIndex: 'createAt',
+      dataIndex: 'createdAt',
     },
   ]
 
@@ -88,7 +65,7 @@ const Trash: FC = () => {
         </Space>
       </div>
       <Table
-        dataSource={questionList}
+        dataSource={list}
         columns={tableColumns}
         pagination={false}
         rowKey={q => q._id}
@@ -113,8 +90,13 @@ const Trash: FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length === 0 && <Empty description="暂无数据" />}
-        {questionList.length > 0 && TableElem}
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
+        {!loading && list.length === 0 && <Empty description="暂无数据" />}
+        {!loading && list.length > 0 && TableElem}
       </div>
     </>
   )

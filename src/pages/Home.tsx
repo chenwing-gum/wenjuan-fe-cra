@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Typography } from 'antd'
 import { MANAGE_INDEX_PATHNAME } from '../router'
@@ -16,6 +16,12 @@ const Home: FC = () => {
   //     search: 'b=21',
   //   })
   // }
+
+  useEffect(() => {
+    fetch('/api/test')
+      .then(res => res.json())
+      .then(data => console.log('fetch data', data))
+  }, [])
 
   return (
     <div className={styles.container}>
