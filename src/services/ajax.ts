@@ -1,11 +1,18 @@
 import axios from 'axios'
 import { message } from 'antd'
+import { getToken } from '../utils/user-token'
 
 const instance = axios.create({
   timeout: 10 * 1000,
 })
 
-export default instance
+instance.interceptors.request.use(
+  config => {
+    config.headers['Authorization'] = `Bearer ${getToken()}`
+    return config
+  },
+  error => Promise.reject(error)
+)
 
 instance.interceptors.response.use(res => {
   const resData = (res.data || {}) as ResType
@@ -21,6 +28,8 @@ instance.interceptors.response.use(res => {
 
   return data as any
 })
+
+export default instance
 
 export type ResType = {
   errno: number

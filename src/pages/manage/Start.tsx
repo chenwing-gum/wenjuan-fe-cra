@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Typography, Empty, Spin } from 'antd'
+import ListPage from '../../components/ListPage'
 import { useTitle } from 'ahooks'
 import QuestionCard from '../../components/QuestionCard'
 import ListSearch from '../../components/ListSearch'
@@ -40,7 +41,9 @@ const Start: FC = () => {
             return <QuestionCard key={_id} {...q} />
           })}
       </div>
-      <div className={styles.footer}>分页</div>
+      <div className={styles.footer}>
+        <ListPage total={total} />
+      </div>
     </>
   )
 }
