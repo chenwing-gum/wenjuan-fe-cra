@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
+import { useTitle } from 'ahooks'
 import { changeSelectedId } from '../../../store/componentsReducer'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import EditCanvas from './EditCanvas'
 import EditHeader from './EditHeader'
@@ -15,6 +17,9 @@ const Edit: FC = () => {
   function clearSelectedId() {
     dispatch(changeSelectedId(''))
   }
+
+  const { title } = useGetPageInfo()
+  useTitle(`问卷编辑 - ${title}`)
 
   return (
     <div className={styles.container}>

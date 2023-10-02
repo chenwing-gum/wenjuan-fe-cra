@@ -8,12 +8,16 @@ import QuestionInfoConfig, { QuestionInfoPropsType } from './QuestionInfo'
 import QuestionTextareaConfig, {
   QuestionTextareaPropsType,
 } from './QuestionTextarea'
-import QuestionRadioConfig, { QuestionRadioPropsType } from './QuestionRadio'
+import QuestionRadioConfig, {
+  QuestionRadioPropsType,
+  QuestionRadioStatPropsType,
+} from './QuestionRadio'
 import QuestionCheckboxConfig, {
   QuestionCheckboxPropsType,
+  QuestionCheckboxStatPropsType,
 } from './QuestionCheckbox'
 
-// 各个组件的 prop type
+// 统一各个组件的 prop type
 export type ComponentPropsType = QuestionInputPropsType &
   QuestionTitlePropsType &
   QuestionParagraphPropsType &
@@ -22,6 +26,10 @@ export type ComponentPropsType = QuestionInputPropsType &
   QuestionRadioPropsType &
   QuestionCheckboxPropsType
 
+// 统一各个组件的统计属性类型
+type ComponentStatPropsType = QuestionRadioStatPropsType &
+  QuestionCheckboxStatPropsType
+
 // 统一组件配置
 export type ComponentConfigType = {
   title: string
@@ -29,6 +37,7 @@ export type ComponentConfigType = {
   Component: FC<ComponentPropsType>
   PropComponent: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
+  StatComponent?: FC<ComponentStatPropsType>
 }
 
 // 全组件配置列表
@@ -65,6 +74,6 @@ export const componentConfigGroup = [
   },
 ]
 
-export function getComponentByType(type: string) {
+export function getComponentConfByType(type: string) {
   return componentConfigList.find(c => c.type === type)
 }

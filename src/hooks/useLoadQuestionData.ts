@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { getQuestionService } from '../services/question'
 import { resetComponents } from '../store/componentsReducer'
 import { resetPageInfo } from '../store/pageInfoReducer'
+import { ActionCreators as UndoActionCreators } from 'redux-undo'
 
 function useLoadQuestionData() {
   const { id = '' } = useParams()
@@ -31,9 +32,9 @@ function useLoadQuestionData() {
       desc = '',
       js = '',
       css = '',
+      isPublished = false,
       componentList = [],
     } = data
-    title
 
     // 获取默认 selectedId
     let selectedId = ''
@@ -44,8 +45,11 @@ function useLoadQuestionData() {
       resetComponents({ componentList, selectedId, copiedComponent: null })
     )
 
+    // 清空历史记录，让请求得来的数据成为起点数据
+    dispatch(UndoActionCreators.clearHistory())
+
     // 把 pageInfo 存储到 redux store
-    dispatch(resetPageInfo({ title, desc, js, css }))
+    dispatch(resetPageInfo({ title, desc, js, css, isPublished }))
   }, [data])
 
   // 判断 id 变化，执行 ajax 加载问卷数据

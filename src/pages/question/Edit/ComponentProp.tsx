@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import {
-  getComponentByType,
+  getComponentConfByType,
   ComponentPropsType,
 } from '../../../components/QuestionComponents'
 import { changeComponentProps } from '../../../store/componentsReducer'
@@ -19,7 +19,7 @@ const ComponentProp: FC = () => {
 
   const { type, props, isLocked, isHidden } = selectedComponent
 
-  const componentConfig = getComponentByType(type)
+  const componentConfig = getComponentConfByType(type)
   if (componentConfig == null) return <NoProp />
 
   function changeProps(newProps: ComponentPropsType) {
