@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useCallback } from 'react'
 import { nanoid } from '@reduxjs/toolkit'
 import { Typography } from 'antd'
 import {
@@ -15,7 +15,7 @@ function genComponent(c: ComponentConfigType) {
   const { title, type, Component, defaultProps } = c
   const dispatch = useDispatch()
 
-  function handleClic() {
+  const handleCick = useCallback(() => {
     dispatch(
       addComponent({
         fe_id: nanoid(),
@@ -24,10 +24,10 @@ function genComponent(c: ComponentConfigType) {
         props: defaultProps,
       })
     )
-  }
+  }, [])
 
   return (
-    <div key={type} className={styles.wrapper} onClick={handleClic}>
+    <div key={type} className={styles.wrapper} onClick={handleCick}>
       <div className={styles.component}>
         <Component />
       </div>

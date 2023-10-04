@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useRef, useMemo } from 'react'
 import {
   Space,
   Button,
@@ -33,7 +33,34 @@ const StatHeader: FC = () => {
     message.success('拷贝成功')
   }
 
-  function getLinkAndQRCodeElm() {
+  // function genLinkAndQRCodeElm() {
+  //   if (!isPublished) return null
+
+  //   // 拼接 url，需要参考 C 端的规则
+  //   const url = `http://localhost:3000/question/${id}`
+
+  //   // 定义二维码组件
+  //   const QRCodeElem = (
+  //     <div style={{ textAlign: 'center' }}>
+  //       <QRCode value={url} size={150} />
+  //     </div>
+  //   )
+
+  //   return (
+  //     <Space>
+  //       <Input value={url} style={{ width: '300px' }} ref={urlInputRef} />
+  //       <Tooltip title="拷贝链接">
+  //         <Button icon={<CopyOutlined />} onClick={copy} />
+  //       </Tooltip>
+  //       <Popover content={QRCodeElem}>
+  //         <Button icon={<QrcodeOutlined />}></Button>
+  //       </Popover>
+  //     </Space>
+  //   )
+  // }
+
+  // 缓存
+  const LinkAndQRCodeElm = useMemo(() => {
     if (!isPublished) return null
 
     // 拼接 url，需要参考 C 端的规则
@@ -57,7 +84,7 @@ const StatHeader: FC = () => {
         </Popover>
       </Space>
     )
-  }
+  }, [id, isPublished])
 
   return (
     <div className={styles['header-wrapper']}>
@@ -70,7 +97,7 @@ const StatHeader: FC = () => {
             <Title>{title}</Title>
           </Space>
         </div>
-        <div className={styles.main}>{getLinkAndQRCodeElm()}</div>
+        <div className={styles.main}>{LinkAndQRCodeElm}</div>
         <div className={styles.right}>
           <Button type="primary" onClick={() => nav(`/question/edit/${id}`)}>
             编辑问卷
