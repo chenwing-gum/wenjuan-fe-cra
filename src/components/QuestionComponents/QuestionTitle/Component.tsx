@@ -4,7 +4,9 @@ import { QuestionTitleDefaultProps, QuestionTitlePropsType } from './interface'
 
 const { Title } = Typography
 
-const QuestionTitle: FC = (props: QuestionTitlePropsType) => {
+const QuestionTitle: FC<QuestionTitlePropsType> = (
+  props: QuestionTitlePropsType
+) => {
   const {
     text = '',
     level = 1,
