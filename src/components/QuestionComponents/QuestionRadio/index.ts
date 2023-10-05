@@ -1,6 +1,6 @@
 /**
  * @description 问卷 radio
- * @author chenborao
+ * @author chenwing_gum
  */
 
 import Component from './Component'

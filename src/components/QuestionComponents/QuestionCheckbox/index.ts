@@ -1,6 +1,6 @@
 /**
  * @description 问卷 checkbox
- * @author chenborao
+ * @author chenwing_gum
  */
 
 import Component from './Component'

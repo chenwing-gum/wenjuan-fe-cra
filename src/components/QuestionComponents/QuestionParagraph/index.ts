@@ -1,6 +1,6 @@
 /*
  * @description: 问卷 - 段落
- * @date: 2023-09-30 23:15:33  @author: chenborao
+ * @date: 2023-09-30 23:15:33  @author: chenwing_gum
  */
 
 import Component from './Component'
